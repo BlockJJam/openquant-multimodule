@@ -1,0 +1,25 @@
+spring:
+  # Datasource config
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://3.36.78.50:5432/postgres
+    username: oq_users
+    password: OqTellUs12#$
+    hikari:
+      maximum-pool-size: 10
+      idle-timeout: 600000
+      max-lifetime: 1800000 # 1000ms * 60s * 30m
+  # JPA config
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false # postgreJDBC Driver 사용가능하고, hibernate dialect 선언도 할 필요 X
+        show-sql: true
+        format_sql: true
+        default_batch_fetch_size: 1000
+        order_by:
+          default_null_ordering: last # sql query에서 order by {} desc nulls last의 "nulls last"설정을 대신해주는 설정
+    hibernate:
+      ddl-auto: none

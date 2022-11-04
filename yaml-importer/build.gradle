@@ -1,0 +1,22 @@
+
+version = '0.0.1'
+
+repositories {
+    maven { url 'https://jitpack.io'}
+}
+
+dependencies {
+    // yaml-importer
+    implementation 'com.github.kingbbode:spring-boot-custom-yaml-importer:0.1.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// below) 해당 module은 실행가능한 bootjar로 활용되지 않기때문에 밑의 설정을 해준다
+bootJar{ enabled= false}
+jar{ enabled = true}

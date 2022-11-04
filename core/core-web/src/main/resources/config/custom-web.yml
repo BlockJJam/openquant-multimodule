@@ -1,0 +1,6 @@
+# tomcat - apache 서버 연동 필드
+tomcat:
+  ajp:
+    protocol: AJP/1.3
+    port: 8002
+    enabled: true

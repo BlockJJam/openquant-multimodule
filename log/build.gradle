@@ -1,0 +1,27 @@
+
+version = '0.0.1'
+
+dependencies {
+    // Log4j2
+    api "org.springframework.boot:spring-boot-starter-log4j2:${springbootVersion}"
+    api group:'com.fasterxml.jackson.dataformat', name:'jackson-dataformat-yaml' ,version:'2.10.3'
+    testImplementation "org.springframework.boot:spring-boot-starter-log4j2:${springbootVersion}"
+    implementation 'org.apache.logging.log4j:log4j-web:2.12.1'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// below) 해당 module은 실행가능한 bootjar로 활용되지 않기때문에 밑의 설정을 해준다
+bootJar{ enabled= false}
+jar{ enabled = true}

@@ -1,0 +1,74 @@
+buildscript {
+	ext{
+		lombokVersion='1.18.22'
+		springbootVersion='2.5.9'
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.5.9'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.tys'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+//	implementation 'org.springframework.boot:spring-boot-starter'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+subprojects {
+	group 'com.tys'
+	version '1.0-SNAPSHOT'
+
+	apply plugin: 'java-library'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	sourceCompatibility = 11
+
+	repositories {
+		mavenCentral() //
+		maven{ url 'https://jitpack.io'}
+	}
+
+	dependencies{
+		// starter
+//		implementation 'org.springframework.boot:spring-boot-starter'
+
+		developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+		// lombok
+		compileOnly "org.projectlombok:lombok:${lombokVersion}"
+		annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+		// test
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+		testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+	}
+}
+
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+// below) 해당 module은 실행가능한 bootjar로 활용되지 않기때문에 밑의 설정을 해준다
+bootJar{ enabled= false}
+jar{ enabled = true}

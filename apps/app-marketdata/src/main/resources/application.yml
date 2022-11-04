@@ -1,0 +1,26 @@
+# Server resource config
+server:
+  port: 8081
+  error:
+    whitelabel:
+      enabled: false #스프링에서 기본적으로 제공하는 에러페이지를 보여주겠다
+    include-exception: true # 응답에 exception의 내용을 포함할지 설정
+    include-message: always # messages.properties에서 해당 에러 메시지를 바인딩해주겠다 -> @ResponseStatus(.... reason="error.bad")의 reason이 있어야함
+  shutdown: graceful
+
+# Logging tool( log4j2 ) config
+logging:
+  config: classpath:log4j2-local.yml
+
+spring:
+  # dev tools( compile 자동화 ) config
+  cache:
+    jcache:
+      config: classpath:ehcache-marketdata.xml
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+
+

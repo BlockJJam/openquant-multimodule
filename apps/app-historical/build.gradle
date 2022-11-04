@@ -1,0 +1,44 @@
+buildscript {
+    ext{
+        actuatorVersion='2.5.5'
+        restdocsVersion='2.0.5.RELEASE'
+        jacksonDatatypeVersion='2.10.1'
+    }
+}
+
+
+version = '0.0.1'
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // jackson datatype
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonDatatypeVersion}"
+
+    // Monitoring tool: Actuator
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: actuatorVersion
+
+    // restdocs
+    testImplementation "org.springframework.restdocs:spring-restdocs-mockmvc:${restdocsVersion}"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    // component independent
+    implementation project(':domains:domain-postgresql')
+    implementation project(':core:core-web')
+    implementation project(':yaml-importer')
+    implementation project(':log')
+}
+
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

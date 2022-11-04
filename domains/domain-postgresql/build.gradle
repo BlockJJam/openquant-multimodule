@@ -1,0 +1,37 @@
+buildscript {
+    ext{
+        queryDslVersion='4.4.0'
+    }
+}
+
+version = '0.0.1'
+
+dependencies {
+    // javax annotation
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation group:'javax.annotation', name:'javax.annotation-api', version:'1.3.2'
+    annotationProcessor 'javax.annotation:javax.annotation-api:1.3.2'
+
+    api "org.springframework.boot:spring-boot-starter-data-jpa:${springbootVersion}"
+    api "org.springframework.boot:spring-boot-starter-jdbc:${springbootVersion}"
+    runtimeOnly 'org.postgresql:postgresql'
+
+    // QueryDsl
+    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-sql:${queryDslVersion}"
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}:jpa"
+    testImplementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    testAnnotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}:jpa"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// below) 해당 module은 실행가능한 bootjar로 활용되지 않기때문에 밑의 설정을 해준다
+bootJar{ enabled= false}
+jar{ enabled = true}
